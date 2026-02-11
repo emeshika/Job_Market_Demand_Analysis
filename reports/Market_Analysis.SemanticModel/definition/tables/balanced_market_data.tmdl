@@ -1,0 +1,175 @@
+table balanced_market_data
+	lineageTag: db01e685-4889-4e1e-949d-0031028cf9be
+
+	column Post_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 25124da0-ff2e-4385-94e6-e1f3a804fecf
+		summarizeBy: none
+		sourceColumn: Post_Date
+
+		variation Variation
+			isDefault
+			relationship: cf0a04b4-85b7-4b06-8b38-7ea7532c1611
+			defaultHierarchy: LocalDateTable_ba296b01-8281-469a-8fd5-10d00ab015d7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Job_Title
+		dataType: string
+		lineageTag: 90f3e2f2-4210-4676-9ee6-ac0940b2f156
+		summarizeBy: none
+		sourceColumn: Job_Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Industry
+		dataType: string
+		lineageTag: 8bcedbe6-1ccd-4a84-aea3-aad516ad777c
+		summarizeBy: none
+		sourceColumn: Industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column Primary_Skill
+		dataType: string
+		lineageTag: bae566de-4fea-461c-bc12-4ef536b9a846
+		summarizeBy: none
+		sourceColumn: Primary_Skill
+
+		annotation SummarizationSetBy = Automatic
+
+	column Experience_Level
+		dataType: string
+		lineageTag: 7ceb4f7e-f53d-4a2f-9585-073ab096c6e3
+		summarizeBy: none
+		sourceColumn: Experience_Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column Min_Salary
+		dataType: int64
+		formatString: 0
+		lineageTag: d0a60504-0e31-4266-a935-3619e278567f
+		summarizeBy: sum
+		sourceColumn: Min_Salary
+
+		annotation SummarizationSetBy = Automatic
+
+	column Max_Salary
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a8030d7-9075-482c-acc6-86721f163f8d
+		summarizeBy: sum
+		sourceColumn: Max_Salary
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 2d79cf44-76ee-4149-b587-43d3f52f95b5
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Remote_Allowed
+		dataType: int64
+		formatString: 0
+		lineageTag: ceb0e4b7-39e0-449e-96e3-9bed5e34ebe4
+		summarizeBy: sum
+		sourceColumn: Remote_Allowed
+
+		annotation SummarizationSetBy = Automatic
+
+	column Applicant_Count
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b7237cf-5fa5-4a6a-9ad2-a620d2bd2a97
+		summarizeBy: sum
+		sourceColumn: Applicant_Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Job_Type
+		dataType: string
+		lineageTag: 68820c6f-587f-4bb2-9f83-32febee83ad2
+		summarizeBy: none
+		sourceColumn: Job_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Company_Size
+		dataType: string
+		lineageTag: 103505fe-46b3-4a5a-953a-2f390f3687dd
+		summarizeBy: none
+		sourceColumn: Company_Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column Urgency_Level
+		dataType: string
+		lineageTag: c997f404-0ecb-47ab-b502-0c4d8a04b055
+		summarizeBy: none
+		sourceColumn: Urgency_Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column Education_Required
+		dataType: string
+		lineageTag: a81b2dc8-6d85-4487-9020-69ae7559ba52
+		summarizeBy: none
+		sourceColumn: Education_Required
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attrition_Risk
+		dataType: double
+		lineageTag: e7521c63-1e8a-4d88-9539-9de828f2589f
+		summarizeBy: sum
+		sourceColumn: Attrition_Risk
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Economic_Indicator_Score
+		dataType: double
+		lineageTag: 0ec5b4f7-9bd7-493d-9c6f-7f6dd09cad05
+		summarizeBy: sum
+		sourceColumn: Economic_Indicator_Score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Hiring_Budget_Status
+		dataType: string
+		lineageTag: 43e87d45-18cd-4ee0-8a55-db3ba1f82302
+		summarizeBy: none
+		sourceColumn: Hiring_Budget_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Demand_Index
+		dataType: double
+		lineageTag: bc85e325-d6f9-4f42-aa03-f6dbab88b29f
+		summarizeBy: sum
+		sourceColumn: Demand_Index
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition balanced_market_data = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Office\Market_Demand_Project\data\balanced_market_data.csv"),[Delimiter=",", Columns=18, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Post_Date", type datetime}, {"Job_Title", type text}, {"Industry", type text}, {"Primary_Skill", type text}, {"Experience_Level", type text}, {"Min_Salary", Int64.Type}, {"Max_Salary", Int64.Type}, {"Region", type text}, {"Remote_Allowed", Int64.Type}, {"Applicant_Count", Int64.Type}, {"Job_Type", type text}, {"Company_Size", type text}, {"Urgency_Level", type text}, {"Education_Required", type text}, {"Attrition_Risk", type number}, {"Economic_Indicator_Score", type number}, {"Hiring_Budget_Status", type text}, {"Demand_Index", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

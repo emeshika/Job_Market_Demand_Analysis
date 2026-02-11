@@ -1,0 +1,20 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["balanced_market_data"]
+
+ref table balanced_market_data
+ref table DateTableTemplate_879720ae-e776-4bab-a376-076bdcd9b93d
+ref table LocalDateTable_ba296b01-8281-469a-8fd5-10d00ab015d7
+
+ref cultureInfo en-US
+

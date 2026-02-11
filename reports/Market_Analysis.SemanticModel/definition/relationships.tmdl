@@ -1,0 +1,5 @@
+relationship cf0a04b4-85b7-4b06-8b38-7ea7532c1611
+	joinOnDateBehavior: datePartOnly
+	fromColumn: balanced_market_data.Post_Date
+	toColumn: LocalDateTable_ba296b01-8281-469a-8fd5-10d00ab015d7.Date
+
