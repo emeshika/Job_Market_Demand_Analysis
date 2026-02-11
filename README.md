@@ -1,4 +1,4 @@
-# Job_Market_Demand_Analysis
+# Job Market Demand Analysis
 **Project Overview**
 This project provides a data-driven deep dive into the current job market. By scraping or analyzing job posting data, it identifies trending skills, salary benchmarks, and geographic demand hotspots. The goal is to bridge the gap between job seekers' skills and industry requirements.
 
